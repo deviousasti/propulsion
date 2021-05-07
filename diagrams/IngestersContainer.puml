@@ -28,7 +28,7 @@ frame Sink <<Expanded>> {
     ] 
     frame dispatcher <<External>> [
         **Propulsion Dispatcher**
-        //(hasa DegreeOfParallelism)//
+        //(has-a DegreeOfParallelism)//
     ]
     database batches <<External>> [
         **Prepared Batches**
@@ -66,8 +66,8 @@ database store <<External>> [
 ]
 
 inputs       -> consumer   : consumes
-consumer     -> ingester   : feeds batches to\n(with backpressure)
-ingester     -> consumer   : periodically marks progress on
+consumer     -> ingester   : submits batches to\n(with backpressure)
+ingester     -> consumer   : periodically checkpoints (by callback)
 ingester     -> parser     : affords\nfiltering and transformation\nvia
 ingester     -> batches    : holds
 scheduler   <-  ingester   : pulls batches from
